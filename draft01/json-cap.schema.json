@@ -1,0 +1,160 @@
+{ 
+    "$schema": "http://json-schema.org/schema#",
+    "id": "https://github.com/eternaltyro/json-cap/schema.json",
+    "title": "JSON Based Common Alerting Protocol",
+    "description": "Draft schema for JSON based common alerting protocol",
+    "type": "object",
+    "properties": {
+        "identifier": {
+            "description": "Unique identifier string for each atomic object",
+            "type": "string"
+        },
+        "authority": {
+            "description": "Unique Code for Registered Authority",
+            "type": "string"
+        },
+        "contact": {
+            "description": "Contact email address",
+            "type": "string",
+            "format": "email"
+        },
+        "creationDate": {
+            "description": "Time of creation of alert message.",
+            "type": "string",
+            "format": "date-time"
+        },
+        "publishDate": {
+            "description": "Time of publishing alert message.",
+            "type": "string",
+            "format": "date-time"
+        },
+        "expiry": {
+            "description": "Time immediately after which this alert is no longer valid",
+            "type": "string",
+            "format": "date-time"
+        },
+        "validFor": {
+            "description": "Alternative to expiry. Describes duration of validity since time of creation.",
+            "type": "array",
+            "items": [ { "type": "integer" },
+                       { "type": "string", "enum": [ "min", "hr", "DY", "WK", "MO", "YR" ] } ]
+        },
+        "status": {
+            "description": "Status of the alert",
+            "type": "string",
+            "enum": [ "Real", "Drill", "Test" ]
+        },
+        "msgType": {
+            "description": "Type of message",
+            "type": "string",
+            "enum": [ "Alert", "Update", "Cancel", "Correction", "Ack", "Resend", "Refute" ]
+        },
+        "source": {
+            "description": "Source of Information.",
+            "type": "string"
+        },
+        "scope": {
+            "description": "Who the alert message is intended for.",
+            "type": "string",
+            "enum": [ "Public", "Private", "Restricted", "AuthZ-only" ]
+        },
+        "target": {
+            "description": "if authorized-only or restricted, who's it for?",
+            "type": "string",
+            "format": "email"
+        },
+        "alertCode": {
+            "description": "Describes the graveness based on certainty, urgency and severity",
+            "type": "string",
+            "enum": [ "RED", "ORANGE", "YELLOW", "GREEN", "GREY" ]
+        },
+        "note": { "type": "string" },
+        "ref": { "type": "string" },
+        "category": { "type": "array", "items": { 
+            "type": "string",
+            "enum": [
+                    "AUTO",
+                    "CBRNE",
+                    "CYBER",
+                    "ENV",
+                    "FIRE",
+                    "GEN",
+                    "GEO",
+                    "HEALTH",
+                    "INFRA",
+                    "LNO",
+                    "MET",
+                    "MIL",
+                    "REC",
+                    "SPACE",
+                    "MISC" ] }
+        },
+        "response": { "type": "array", "items": {
+            "type": "string",
+            "enum": [
+                    "Shelter",
+                    "EVAC",
+                    "PREP",
+                    "EXEC",
+                    "AVOID",
+                    "MON",
+                    "ASSESS",
+                    "AllClear",
+                    "None" ] }
+        },
+        "urgency": {
+            "description": "A rough time estimate of the event occurance.",
+            "type": "string",
+            "enum": [ "Immediate", "Expected", "Past", "Unknown" ]
+        },
+        "severity": {
+            "description": "Intensity of the situation",
+            "type": "string",
+            "enum": [ "Extreme", "Severe", "Moderate", "Minor", "Unknown" ]
+        },
+        "certainty": {
+            "description": "How probable is the event?",
+            "type": "string",
+            "enum": [ "Observed", "Likely", "Probable", "Unlikely", "Unknown" ]
+        },
+        "probability": {
+            "description": "Mathematical probablity",
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "maximum": 1,
+            "exclusiveMaximum": false
+        },
+        "onset": { "type": "string", "format": "date-time" },
+        "sender": { "type": "string" },
+        "web": { "type": "string", "format": "uri"},
+        "description": { "type": "string" },
+        "instruction": { "type": "string" },
+        "digest": { "type": "string" },
+        "geojson": {
+            "type": "object",
+            "properties": { "$ref": "https://raw.githubusercontent.com/fge/sample-json-schemas/master/geojson/geojson.json#" }
+        },
+        "altitude": { "type": "string" },
+        "ceiling": { "type": "string" },
+        "PGP_FINGERPINT": { "type": "string" },
+        "ALT_FINGERPRINT": { "type": "string" }
+    },
+    "required": [ 
+        "alertCode",
+        "authority",
+        "category",
+        "certainty",
+        "contact",
+        "digest",
+        "geoJSON", 
+        "identifier", 
+        "msgType",
+        "publishDate",
+        "response",
+        "scope",
+        "severity",
+        "status",
+        "urgency"
+    ]
+}
