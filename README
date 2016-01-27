@@ -1,2 +1,15 @@
 README
 ======
+
+JSON-CAP is a project that attempts to re-create the Oasis Common Alerting
+Protocol using JSON in place of XML. 
+
+Why?
+====
+
+
+References
+==========
+
+1. Common Alerting Protocol - https://en.wikipedia.org/wiki/Common_Alerting_Protocol
+2. CAP Spec - docs.oasis-open.org/emergency/cap/v1.2/CAP-v1.2-os.html
