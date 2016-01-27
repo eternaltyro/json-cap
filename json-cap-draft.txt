@@ -50,21 +50,21 @@ identifier string MUST follow the format specified below.
 THE unique identifier string MUST be made up of colon-separated attributes.  
 The attributes in their intended sequential order are given below.
 
-1. A unique short CAP-JSON Identifier string.
-2. A universally unique Authority code for the publishing authority
-3. Alert Level color or threat code
-4. Country identifier based on either "ISO 3166-1 alpha-3" or 
-   "ISO 3166-1 numeric" 
+1.   A unique short CAP-JSON Identifier string.
+2.   A universally unique Authority code for the publishing authority
+3.   Alert Level color or threat code
+4.   Country identifier based on either "ISO 3166-1 alpha-3" or 
+     "ISO 3166-1 numeric" 
 4.a. If the emergency is in multiple countries?
 4.b. If the emergency is in a continent?
-5. State or Province short code
+5.   State or Province short code
 5.a. If the emergency is in the whole state, use single 0
 5.b. If the emergency is in multiple states, use X
-6. PINCODE / POST Code
+6.   PINCODE / POST Code
 6.a. If Pincode is not known, then use X
-7. Category of emergency
-8. Date in ISO date-time format followed by hyphen followed by 3-digit
-   decimal sequence number.
+7.   Category of emergency
+8.   Date in ISO date-time format followed by hyphen followed by 3-digit
+     decimal sequence number.
 
     cjm:AUT4498:RED:IN:TN:600001:MET:201511-001
     udn:AUT4400:RED:ASI:IN:0:X:SEC:201512-012
@@ -139,32 +139,32 @@ authorities in each category.  Six HEX characters allows for 16 million.
 
 6.1.5. Users
 
-A User SHOULD be able to filter messages from a feed by a single authority
-or a set of authorities.  For
-example, a public university could set up a server that acts as a syndicate
-and aggregate the feeds from several student meteorologists.  A user could
-then subscribe to the university feeds and parse them as she wishes.
+A User MAY be an individual, group or organization that fetches and 
+consumes CAP-JSON feeds.  A User SHOULD be able to filter messages from a
+feed by a single authority or a set of authorities.  For example, a public
+university could set up a server that acts as a syndicate and aggregate the
+feeds from several student meteorologists.  A user could then subscribe to 
+the university feeds and parse them as she wishes.
 
 Example Scenario:
-a. Alice, Bob and Charlie are student meteorologists at ABC university.
+a. Alice and Bob are student meteorologists at ABC university.
 b. ABC University has a meteorology lab running a public "syndicate server."
-c. Alice, Bob and Charlie as part of their coursework independantly analyze
-weather patterns and publish their data.  When they detect signs of rough 
-weather, they publish the data in JSON-CAP format. 
-d. Alice, Bob and Charlie have registered themselves to ABC university 
-syndicate.
-e. Everytime Alice, Bob and Charlie publish their CAP-JSON feed, the ABC
-university syndicate server fetches them and aggregates the feed. 
-f. Dave is a farmer with a computer science degree and wishes to be alerted
-when there is a hurricane threat.
-g. Dave subscribes to ABC universitys CAP-JSON feed.  He even builds a tool
-that parses the CAP-JSON feed and alerts him when there is indication of a
-hurricane.
-i. He decides that Alice's feeds have better predictions than Bobs or 
-Charlie's. So he filters out and uses just Alice's feeds in his tool. 
+c. Alice and Bob, as part of their coursework independantly analyze weather
+   patterns and publish their data.
+d. When they detect signs of rough weather, they publish alerts in JSON-CAP. 
+d. Alice and Bob have registered themselves to ABC university syndicate.
+e. Each time Alice and Bob publish their CAP-JSON feed, the ABC university 
+   syndicate server fetches them and aggregates the feed. 
+f. Cathy is a farmer with a CS degree and wishes to be alerted whenever 
+   there is a hurricane threat.
+g. Cathy subscribes to ABC universitys CAP-JSON feed.  She builds a tool 
+   that parses the CAP-JSON feed and alerts him when there is indication of
+   a hurricane.
+i. Cathy decides that Alice's feeds have better predictions than Bobs.  So
+   she filters out and uses just Alice's feeds in her tool. 
 
-Ideally, after Alice publishes her data, it should reach Dave's tool in 
-near real time. It should only be delayed based on the network.
+Ideally, after Alice publishes her data, it should reach Cathys tool in 
+near real time.  Any delay SHOULD only be based on the network bandwidth.
 
 
 6.1.1 CAP-JSON Identifier
@@ -224,25 +224,19 @@ Certainty.  We assign a color code to each level in each category.
 
 Color addition:
 
-+--------+----------+----------+----------+----------+
-|       \|  RED     |  ORANGE  |  YELLOW  |  GREY    |
-+--------+----------+----------+----------+----------+  
-|  RED   |  RED     |          |          |  ORANGE  |
-+--------+----------+----------+----------+----------+
-| ORANGE |          |  ORANGE  |          |          |
-+--------+----------+----------+----------+----------+
-| YELLOW |          |          |  YELLOW  |          |
-+--------+----------+----------+----------+----------+
-| GREEN  |          |          |          |          |
-+--------+----------+----------+----------+----------+
-| GREY   |          |          |          |          |
-+========+==========+==========+==========+==========+
-RED + ORANGE = ORANGE
-RED + YELLOW = ORANGE
-RED + GREEN = GREEN
-ORANGE + YELLOW = ORANGE
-ORANGE + GREEN = GREEN
-YELLOW + GREEN = GREEN
++--------+----------+----------+----------+----------+----------+
+|\======\|  RED     |  ORANGE  |  YELLOW  |  GREEN   |  GREY    |
++========+==========+==========+==========+==========+==========+  
+|  RED   |  RED     |  ORANGE  |  ORANGE  |  GREEN   |  RED     |
++--------+----------+----------+----------+----------+----------+
+| ORANGE |  ORANGE  |  ORANGE  |  ORANGE  |  GREEN   |  ORANGE  |
++--------+----------+----------+----------+----------+----------+
+| YELLOW |  ORANGE  |  ORANGE  |  YELLOW  |  GREEN   |  YELLOW  |
++--------+----------+----------+----------+----------+----------+
+| GREEN  |  GREEN   |  GREEN   |  GREEN   |  GREEN   |  GREEN   |
++--------+----------+----------+----------+----------+----------+
+| GREY   |  RED     |  ORANGE  |  YELLOW  |  GREEN   |  YELLOW  |
++========+==========+==========+==========+==========+==========+
 GREY + OTHER = OTHER
 GREY + GREY = YELLOW (WAIT FOR UPDATES)
 
@@ -252,6 +246,7 @@ Threat Matrix
 +------------+-------------+-----------+--------------+
 |  Severe    |  Likely     |  Immediate|  RED         |
 |  Extreme   |  Probable   |  Unknown  |  YELLOW      |
++============+=============+===========+==============+
 
 6.1.1. Emergency Category
 
@@ -276,24 +271,64 @@ CBRNE  -- Deliberate attacks using Chemical, Biological, Radiological,
 CYBER  -- Internet breaches, Mass Doxxing, identity theft.
 MISC   -- Other uncategorized, alien invasions, crop-circles, etc.
  
+This property is an array, since a specific event could be categorized as
+belonging to more than one category.  A "CYBER" event targeted towards
+critical public infrastructure MAY also be an "INFRA" event.  However it is
+advisable to categorize events under just one category.
+
 6.1.2. Severity
 
+The Severity denotes the level of threat to life and property.  Also known 
+as magnitude or scale of emergency.  
 
+Extreme   -- Extreme threat to life or property
+Severe    -- Significant threat to life or property
+Moderate  -- Moderate but tangible threat to life or property
+Minor     -- Minimal or no threat to life or property
+Unknown   -- Unknown.
 
+6.1.2. Magnitude
+
+The magnitude scale is dependant on different events.  The following scales
+for magnitude is valid
+
+Earthquakes - Moment Magnitude Scale or Richter Magnitude Scale
+Volcanic Eruption - Volcanic Explosivity Index
+Space Impact Threat - Palmero Scale or Torino Scale
+Hurricane - Saffir-Simpson Wind Scale
+Health - Endemic, Epidemic, Pandemic (along with scope)
+National Security - NTAS Scale
 
 6.1.3. Certainty
+// FIXME: Probabilities ratings for Certainty categories
 
 Certanty is the probability of an event happening.  It SHOULD be a 
 reasonably accurate estimate of how likely it is for an event to occur. The
 levels of Certainty are given below
 
 Observed - P >= 0.99
-Likely   - P > 0.5
-Probable - P ~ 0.5
-Unlikely - P < 0.5
+Likely   - P >= 0.5
+Probable - P <= 0.5
+Unlikely - P <~ 0
 Unknown
 
+For some events such as earthquakes, Certainty cannot be known.  Therefore
+even if Certainty is "Unknown", it is advisable to stay alert and prepared.
+
 6.1.4. Urgency
+
+Urgency defines the duration of time left between present and the start of
+occurance of the event.
+
+// FIXME: Better explanations and grammar
+Immediate -- The occurance COULD start any moment in the present
+Expected  -- The occurance is expected to start in the near future
+Past      -- The occurance has already started and ended in the past
+Unknown   -- Unknown
+
+For some events such as earthquakes, "Past" urgency is still significant
+since there might be aftershocks soon after, depending upon the magnitude
+of the event. 
 
 6.A.1. Delineating two JSON FRAMES
 
@@ -315,7 +350,7 @@ x. TERMINOLOGY
 7. Message
 8. Alert
 9. Emergency
-
+10. Event / Occurance
 
 x. GLOSSARY
 x. NOTES

@@ -34,7 +34,7 @@
             "format": "date-time"
         },
         "validFor": {
-            "description": "Alternative to expiry. Describes duration of validity since time of creation.",
+            "description": "Alternative to expiry.  Describes duration of validity since time of creation.",
             "type": "array",
             "items": [ { "type": "integer" },
                        { "type": "string", "enum": [ "min", "hr", "DY", "WK", "MO", "YR" ] } ]
@@ -42,12 +42,22 @@
         "status": {
             "description": "Status of the alert",
             "type": "string",
-            "enum": [ "Real", "Drill", "Test" ]
+            "enum": [ 
+                    "Real", 
+                    "Drill", 
+                    "Test" ]
         },
         "msgType": {
             "description": "Type of message",
             "type": "string",
-            "enum": [ "Alert", "Update", "Cancel", "Correction", "Ack", "Resend", "Refute" ]
+            "enum": [ 
+                    "Alert", 
+                    "Update", 
+                    "Cancel", 
+                    "Correction", 
+                    "Ack", 
+                    "Resend", 
+                    "Refute" ]
         },
         "source": {
             "description": "Source of Information.",
@@ -56,7 +66,11 @@
         "scope": {
             "description": "Who the alert message is intended for.",
             "type": "string",
-            "enum": [ "Public", "Private", "Restricted", "AuthZ-only" ]
+            "enum": [ 
+                    "Public", 
+                    "Private", 
+                    "Restricted", 
+                    "AuthZ-only" ]
         },
         "target": {
             "description": "if authorized-only or restricted, who's it for?",
@@ -66,10 +80,19 @@
         "alertCode": {
             "description": "Describes the graveness based on certainty, urgency and severity",
             "type": "string",
-            "enum": [ "RED", "ORANGE", "YELLOW", "GREEN", "GREY" ]
+            "enum": [ 
+                    "RED", 
+                    "ORANGE", 
+                    "YELLOW", 
+                    "GREEN", 
+                    "GREY" ]
         },
-        "note": { "type": "string" },
-        "ref": { "type": "string" },
+        "note": { 
+            "type": "string" 
+        },
+        "ref": { 
+            "type": "string" 
+        },
         "category": { "type": "array", "items": { 
             "type": "string",
             "enum": [
@@ -92,30 +115,44 @@
         "response": { "type": "array", "items": {
             "type": "string",
             "enum": [
-                    "Shelter",
-                    "EVAC",
-                    "PREP",
-                    "EXEC",
-                    "AVOID",
-                    "MON",
-                    "ASSESS",
                     "AllClear",
+                    "Assess",
+                    "Avoid",
+                    "Evac",
+                    "Execute",
+                    "Monitor",
+                    "Prep",
+                    "Shelter",
                     "None" ] }
         },
         "urgency": {
             "description": "A rough time estimate of the event occurance.",
             "type": "string",
-            "enum": [ "Immediate", "Expected", "Past", "Unknown" ]
+            "enum": [ 
+                    "Immediate", 
+                    "Expected", 
+                    "Past", 
+                    "Unknown" ]
         },
         "severity": {
             "description": "Intensity of the situation",
             "type": "string",
-            "enum": [ "Extreme", "Severe", "Moderate", "Minor", "Unknown" ]
+            "enum": [ 
+                    "Extreme", 
+                    "Severe", 
+                    "Moderate", 
+                    "Minor", 
+                    "Unknown" ]
         },
         "certainty": {
             "description": "How probable is the event?",
             "type": "string",
-            "enum": [ "Observed", "Likely", "Probable", "Unlikely", "Unknown" ]
+            "enum": [
+                    "Observed",
+                    "Likely", 
+                    "Probable", 
+                    "Unlikely", 
+                    "Unknown" ]
         },
         "probability": {
             "description": "Mathematical probablity",
@@ -125,20 +162,44 @@
             "maximum": 1,
             "exclusiveMaximum": false
         },
-        "onset": { "type": "string", "format": "date-time" },
-        "sender": { "type": "string" },
-        "web": { "type": "string", "format": "uri"},
-        "description": { "type": "string" },
-        "instruction": { "type": "string" },
-        "digest": { "type": "string" },
+        "onset": { 
+            "type": "string", 
+            "format": "date-time" 
+        },
+        "sender": { 
+            "type": "string" 
+        },
+        "web": { 
+            "type": "string", 
+            "format": "uri"
+        },
+        "description": { 
+            "type": "string" 
+        },
+        "instruction": { 
+            "type": "string" 
+        },
+        "msgDigest": { 
+            "type": "string",
+            "maxLength": 40 
+        },
         "geojson": {
             "type": "object",
-            "properties": { "$ref": "https://raw.githubusercontent.com/fge/sample-json-schemas/master/geojson/geojson.json#" }
+            "properties": { "$ref": "https://raw.githubusercontent.com/fge/sample-json-schemas/master/geojson/geojson.json#" 
+            }
         },
-        "altitude": { "type": "string" },
-        "ceiling": { "type": "string" },
-        "PGP_FINGERPINT": { "type": "string" },
-        "ALT_FINGERPRINT": { "type": "string" }
+        "altitude": { 
+            "type": "string" 
+        },
+        "ceiling": { 
+            "type": "string" 
+        },
+        "PGP_FINGERPINT": { 
+            "type": "string" 
+        },
+        "ALT_FINGERPRINT": { 
+            "type": "string" 
+        }
     },
     "required": [ 
         "alertCode",
